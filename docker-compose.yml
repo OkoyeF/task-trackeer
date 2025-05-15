@@ -1,0 +1,37 @@
+services:
+   app:
+    image: razegold/task-trackeer:v1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - PORT=3000
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=task_tracker
+      - DB_PORT=5432
+    networks:
+      - task-trackeer-network
+
+   db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=task_trackeer
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - task-trackeer-network
+
+volumes:
+  postgres_data:
+
+networks:
+  task-trackeer-network:
+    driver: bridge
