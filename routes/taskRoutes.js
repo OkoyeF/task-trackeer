@@ -2,11 +2,9 @@ const express = require('express');
 const router = express.Router();
 const taskController = require('../controllers/taskController');
 
-// Web routes (render views)
 router.get('/', taskController.home);
 router.get('/tasks', taskController.getAllTasks);
 
-// API routes
 router.get('/api/tasks', taskController.getTasks);
 router.get('/api/tasks/:id', taskController.getTask);
 router.post('/api/tasks', taskController.createTask);

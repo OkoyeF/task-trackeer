@@ -1,0 +1,35 @@
+services:
+  app:
+    image: razegold/task-trackeer:production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file:
+      - .env.production
+    restart: always
+    networks:
+      - task-trackeer-network-production
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secure_password
+      - POSTGRES_DB=task_trackeer_production
+    volumes:
+      - postgres_data_production:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    restart: always
+    networks:
+      - task-trackeer-network-production
+
+volumes:
+  postgres_data_production:
+
+networks:
+  task-tracker-network-production:
+    name: task-trackeer-network-production
+    driver: bridge

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Add task
+  
   document.getElementById('saveTaskBtn').addEventListener('click', function() {
     const title = document.getElementById('title').value;
     const description = document.getElementById('description').value;
@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Edit task - Load task data into modal
   const editButtons = document.querySelectorAll('.edit-task');
   editButtons.forEach(button => {
     button.addEventListener('click', function() {
@@ -55,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Update task
   document.getElementById('updateTaskBtn').addEventListener('click', function() {
     const taskId = document.getElementById('editTaskId').value;
     const title = document.getElementById('editTitle').value;
@@ -90,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Delete task - Show confirmation modal
   let deleteTaskId = null;
   const deleteButtons = document.querySelectorAll('.delete-task');
   deleteButtons.forEach(button => {
@@ -100,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Confirm delete task
   document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
     if (!deleteTaskId) return;
 

@@ -1,7 +1,6 @@
 const { pool } = require('../config/db');
 
 class Task {
-  // Get all tasks
   static async getAll() {
     try {
       const result = await pool.query(
@@ -13,7 +12,6 @@ class Task {
     }
   }
 
-  // Get task by ID
   static async getById(id) {
     try {
       const result = await pool.query(
@@ -26,7 +24,6 @@ class Task {
     }
   }
 
-  // Create new task
   static async create(taskData) {
     try {
       const { title, description, status, priority } = taskData;
@@ -40,7 +37,6 @@ class Task {
     }
   }
 
-  // Update task
   static async update(id, taskData) {
     try {
       const { title, description, status, priority } = taskData;
@@ -57,7 +53,6 @@ class Task {
     }
   }
 
-  // Delete task
   static async delete(id) {
     try {
       const result = await pool.query(

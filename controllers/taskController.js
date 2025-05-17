@@ -1,6 +1,5 @@
 const Task = require('../models/Task');
 
-// Get all tasks (render view)
 exports.getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.getAll();
@@ -18,7 +17,6 @@ exports.getAllTasks = async (req, res) => {
   }
 };
 
-// Get all tasks (API - return JSON)
 exports.getTasks = async (req, res) => {
   try {
     const tasks = await Task.getAll();
@@ -29,7 +27,6 @@ exports.getTasks = async (req, res) => {
   }
 };
 
-// Get a single task
 exports.getTask = async (req, res) => {
   try {
     const task = await Task.getById(req.params.id);
@@ -43,12 +40,10 @@ exports.getTask = async (req, res) => {
   }
 };
 
-// Create new task
 exports.createTask = async (req, res) => {
   try {
     const { title, description, status, priority } = req.body;
     
-    // Basic validation
     if (!title) {
       return res.status(400).json({ message: 'Title is required' });
     }
@@ -70,19 +65,16 @@ exports.createTask = async (req, res) => {
   }
 };
 
-// Update task
 exports.updateTask = async (req, res) => {
   try {
     const { title, description, status, priority } = req.body;
     const taskId = req.params.id;
     
-    // Check if task exists
     const task = await Task.getById(taskId);
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
     }
     
-    // Update task
     const updated = await Task.update(taskId, {
       title: title || task.title,
       description: description !== undefined ? description : task.description,
@@ -101,18 +93,15 @@ exports.updateTask = async (req, res) => {
   }
 };
 
-// Delete task
 exports.deleteTask = async (req, res) => {
   try {
     const taskId = req.params.id;
     
-    // Check if task exists
     const task = await Task.getById(taskId);
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
     }
     
-    // Delete task
     const deleted = await Task.delete(taskId);
     
     if (deleted) {
@@ -126,7 +115,6 @@ exports.deleteTask = async (req, res) => {
   }
 };
 
-// Render home page
 exports.home = (req, res) => {
   res.render('index', { title: 'Task Tracker App' });
 };
